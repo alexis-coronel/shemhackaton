@@ -68,6 +68,11 @@ export default function CrearPregunta({setPreguntaRespondida}) {
       setResponse(data.error || "Error desconocido")
     } else {
       setResponse(data.answer)
+      setQuestion('')
+      setTargetInput('')
+      setTargetNick('')
+      setTargetResults([])
+      setSelectedUser(null)
       setPreguntaRespondida(true)
     }
 
