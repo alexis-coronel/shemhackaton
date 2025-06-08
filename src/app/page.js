@@ -46,7 +46,7 @@ export default function Home() {
   const [newnote, setNewnote] = useState(false)
   const [newQuestion, setNewQuestion] = useState(false)
   const [mensaje, setMensaje] = useState('')
-  const [preguntaRespondida, setPreguntaRespondida] = useState(false)
+  const [preguntaRespondida, setPreguntaRespondida] = useState('')
   const [infoNote, setInfoNote] = useState(null)
   const [infoQuestion, setInfoQuestion] = useState(null)
 
@@ -90,7 +90,7 @@ export default function Home() {
     }
     if(preguntaRespondida){
       validacionPeticion()
-      setPreguntaRespondida(false)
+      setPreguntaRespondida('')
     }
   }, [newQuestion, newnote,preguntaRespondida])
 
