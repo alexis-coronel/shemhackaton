@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
 
-export default function CrearPregunta({setPreguntaRespondida}) {
+export default function CrearPregunta({setPreguntaRespondida,PreguntaRespondida}) {
   const { user } = useAuth()
   const [question, setQuestion] = useState('')
   const [targetInput, setTargetInput] = useState('')
   const [targetNick, setTargetNick] = useState('')
   const [targetResults, setTargetResults] = useState([])
   const [selectedUser, setSelectedUser] = useState(null)
-  const [response, setResponse] = useState(null)
   const [loading, setLoading] = useState(false)
 
   
@@ -40,17 +39,17 @@ export default function CrearPregunta({setPreguntaRespondida}) {
 
   const handleAsk = async () => {
     if (!user) {
-      setResponse("Debes iniciar sesión primero.")
+      setPreguntaRespondida("Debes iniciar sesión primero.")
       return
     }
 
     if (!question || !targetNick) {
-      setResponse("Faltan campos por completar.")
+      setPreguntaRespondida("Faltan campos por completar.")
       return
     }
 
     setLoading(true)
-    setResponse(null)
+    setPreguntaRespondida(null)
 
     const res = await fetch("/api/chat", {
       method: "POST",
@@ -65,15 +64,14 @@ export default function CrearPregunta({setPreguntaRespondida}) {
     const data = await res.json()
 
     if (!res.ok) {
-      setResponse(data.error || "Error desconocido")
+      setPreguntaRespondida(data.error || "Error desconocido")
     } else {
-      setResponse(data.answer)
       setQuestion('')
       setTargetInput('')
       setTargetNick('')
       setTargetResults([])
       setSelectedUser(null)
-      setPreguntaRespondida(true)
+      setPreguntaRespondida(data.answer)
     }
 
     setLoading(false)
@@ -132,9 +130,9 @@ export default function CrearPregunta({setPreguntaRespondida}) {
         {loading ? 'Enviando...' : 'Preguntar'}
       </button>
 
-      {response && (
+      {PreguntaRespondida && (
         <div className="mt-3 bg-[#0f172a] border border-cyan-800 rounded-lg p-3 text-cyan-300 text-sm">
-          {response}
+          {PreguntaRespondida}
         </div>
       )}
     </div>
