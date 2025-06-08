@@ -46,7 +46,7 @@ export default function Home() {
   const [newnote, setNewnote] = useState(false)
   const [newQuestion, setNewQuestion] = useState(false)
   const [mensaje, setMensaje] = useState('')
-  const [preguntaRespondida, setPreguntaRespondida] = useState('')
+  const [preguntaRespondida, setPreguntaRespondida] = useState(null)
   const [infoNote, setInfoNote] = useState(null)
   const [infoQuestion, setInfoQuestion] = useState(null)
 
